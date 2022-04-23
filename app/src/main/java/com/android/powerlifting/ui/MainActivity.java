@@ -1,4 +1,4 @@
-package com.android.powerlifting;
+package com.android.powerlifting.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
