@@ -5,13 +5,15 @@ public class Member {
     private String phone;
     private float weight;
     private String profilePhotoUrl;
+    private int age;
     private String location; // State
 
-    public Member(String name, String phone, float weight, String profilePhotoUrl, String location) {
+    public Member(String name, String phone, float weight, String profilePhotoUrl,int age, String location) {
         this.name = name;
         this.phone = phone;
         this.weight = weight;
         this.profilePhotoUrl = profilePhotoUrl;
+        this.age = age;
         this.location = location;
     }
 
@@ -32,6 +34,7 @@ public class Member {
         this.profilePhotoUrl = profilePhotoUrl;
     }
 
+
     public String getName() {
         return name;
     }
@@ -46,6 +49,10 @@ public class Member {
 
     public String getProfilePhotoUrl() {
         return profilePhotoUrl;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public String getLocation() {
