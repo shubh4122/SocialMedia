@@ -5,12 +5,14 @@ public class Member {
     private String phone;
     private float weight;
     private String profilePhotoUrl;
+    private String location; // State
 
-    public Member(String name, String phone, float weight, String profilePhotoUrl) {
+    public Member(String name, String phone, float weight, String profilePhotoUrl, String location) {
         this.name = name;
         this.phone = phone;
         this.weight = weight;
         this.profilePhotoUrl = profilePhotoUrl;
+        this.location = location;
     }
 
     //setters are used cause these fields are changeable!
@@ -44,5 +46,9 @@ public class Member {
 
     public String getProfilePhotoUrl() {
         return profilePhotoUrl;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }
