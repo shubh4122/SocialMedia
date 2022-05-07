@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/fragment_members.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/post_item.xml" value="0.33" />
         <entry key="app/src/main/res/menu/navbar_menu.xml" value="0.353125" />
       </map>
     </option>

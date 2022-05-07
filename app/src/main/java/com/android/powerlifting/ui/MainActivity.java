@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 //                        On clicking any one, initializes selectedFragment with the corresponding fragment
                         case R.id.home:
                             selectedFragment = new PostFragment();
-                            setTitle("Post");
+                            setTitle("Posts");
                             break;
 
                         case R.id.admin:
