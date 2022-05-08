@@ -17,6 +17,13 @@ public class Member {
         this.location = location;
     }
 
+    //For admin Panel
+    public Member(String name, String profilePhotoUrl, String location) {
+        this.name = name;
+        this.profilePhotoUrl = profilePhotoUrl;
+        this.location = location;
+    }
+
     //setters are used cause these fields are changeable!
     public void setName(String name) {
         this.name = name;

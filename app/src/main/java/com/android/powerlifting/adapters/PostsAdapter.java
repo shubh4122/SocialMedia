@@ -61,10 +61,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            profilePic = itemView.findViewById(R.id.profilePic);
+            profilePic = itemView.findViewById(R.id.adminPicAdminPage);
             postPic = itemView.findViewById(R.id.post_pic);
-            adminName = itemView.findViewById(R.id.name_of_post_creator);
-            time_place = itemView.findViewById(R.id.time_place_of_post);
+            adminName = itemView.findViewById(R.id.adminName);
+            time_place = itemView.findViewById(R.id.placeOfAdmin);
             caption = itemView.findViewById(R.id.caption_post);
 
         }
