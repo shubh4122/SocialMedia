@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/profilePic"
+                android:id="@+id/profilePicCardview"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_margin="16dp"
@@ -22,9 +25,10 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:id="@+id/profilePic"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/trial_pic" />
 
             </androidx.cardview.widget.CardView>
 
@@ -32,19 +36,19 @@
                 android:id="@+id/name_of_post_creator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Admin Name"
                 android:textColor="@color/black"
                 android:textSize="24sp"
-                app:layout_constraintLeft_toRightOf="@id/profilePic"
-                app:layout_constraintTop_toTopOf="@id/profilePic" />
+                app:layout_constraintLeft_toRightOf="@id/profilePicCardview"
+                app:layout_constraintTop_toTopOf="@id/profilePicCardview"
+                tools:text="Admin Name" />
 
             <TextView
                 android:id="@+id/time_place_of_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="09:12 am | Kanpur, UP"
                 app:layout_constraintLeft_toLeftOf="@id/name_of_post_creator"
-                app:layout_constraintTop_toBottomOf="@id/name_of_post_creator" />
+                app:layout_constraintTop_toBottomOf="@id/name_of_post_creator"
+                tools:text="09:12 am | Kanpur, UP" />
 
 
             <TextView
@@ -73,18 +77,19 @@ Type safety arguments when passing information while navigating"
 
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/profilePic" />
+                app:layout_constraintTop_toBottomOf="@id/profilePicCardview" />
 
 
             <ImageView
+                android:id="@+id/post_pic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
-                android:src="@drawable/ic_launcher_background"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/caption_post" />
+                app:layout_constraintTop_toBottomOf="@id/caption_post"
+                android:src="@drawable/trial_pic" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
