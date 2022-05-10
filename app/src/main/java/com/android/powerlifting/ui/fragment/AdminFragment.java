@@ -1,5 +1,6 @@
 package com.android.powerlifting.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.powerlifting.R;
 import com.android.powerlifting.adapters.PostsAdapter;
 import com.android.powerlifting.models.Member;
+import com.android.powerlifting.ui.AddNewPost;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -23,12 +26,17 @@ public class AdminFragment extends Fragment {
     private RecyclerView recyclerView;
     private PostsAdapter postsAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private FloatingActionButton addPostBtn;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_admin, container, false);
+
+        addPostBtn = v.findViewById(R.id.addPost);
+        startActivity(new Intent(getActivity(), AddNewPost.class));
+
         adminList = new ArrayList<Member>();
 
         Member member = new Member("SEC_ADMIN_NAME", "Fasdfse", "Mumbai, Maharashtra");
