@@ -4,16 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.powerlifting.R;
 import com.android.powerlifting.models.Member;
 import com.android.powerlifting.models.Post;
 
-public class AddNewPost extends AppCompatActivity {
+public class AddNewPostActivity extends AppCompatActivity {
 
     private EditText captionEditText;
     private ImageView postImage;
@@ -48,7 +50,14 @@ public class AddNewPost extends AppCompatActivity {
                 Member postCreator = new Member("postCreatorName",
                                                 "PROFILE PIC",
                                                 "Lucknow, UP");
-                Post post = new Post(caption, "PHOTO TO BE UPLOADED", postCreator);
+
+//                Log.i("TRIAL", postCreator.getLocation());
+//                Log.i("TRIAL", postCreator.getName());
+////                Log.i("TRIAL", postCreator.getPhone());
+//                Log.i("TRIAL", postCreator.getProfilePhotoUrl());
+//                Log.i("TRIAL", postCreator.getAge()+"");
+//                Log.i("TRIAL", postCreator.getWeight()+"");
+                Post post = new Post(caption, "PHOTO TO BE UPLOADED", postCreator, "09:30", "Kanpur, UP");
                 postViewModel.addPosts(post);
             }
         });

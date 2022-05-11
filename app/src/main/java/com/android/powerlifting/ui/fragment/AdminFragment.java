@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.powerlifting.R;
 import com.android.powerlifting.adapters.PostsAdapter;
 import com.android.powerlifting.models.Member;
-import com.android.powerlifting.ui.AddNewPost;
+import com.android.powerlifting.ui.AddNewPostActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -35,7 +35,14 @@ public class AdminFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_admin, container, false);
 
         addPostBtn = v.findViewById(R.id.addPost);
-        startActivity(new Intent(getActivity(), AddNewPost.class));
+
+        addPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), AddNewPostActivity.class));
+            }
+        });
+
 
         adminList = new ArrayList<Member>();
 

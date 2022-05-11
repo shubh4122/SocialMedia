@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Powerlifting">
         <activity
-            android:name=".ui.AddNewPost"
+            android:name=".ui.AddNewPostActivity"
             android:exported="false" />
         <activity
             android:name=".ui.UserInfoActivity"

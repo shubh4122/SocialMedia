@@ -33,12 +33,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         Post currentPost = postsList.get(position);
 
         //Get these pics from GLIDE, and db
-//        holder.profilePic.setImageResource(R.drawable.ic_launcher_background);
-//        holder.postPic.setImageResource(R.drawable.ic_launcher_background);
+        holder.profilePic.setImageResource(R.drawable.ic_launcher_background);
+        holder.postPic.setImageResource(R.drawable.ic_launcher_background);
 
-        holder.adminName.setText("ADMIN NAME");
-        holder.time_place.setText("09:12 am | Kanpur, UP");
-//        holder.caption.setText("GET TEXT AND PASTE!!");
+        holder.adminName.setText(currentPost.getUser().getName());
+        holder.time_place.setText(currentPost.getTimeOfPost() + " | " + currentPost.getLocationOfPostGenerator());
+        holder.caption.setText(currentPost.getCaption());
     }
 
     @Override
