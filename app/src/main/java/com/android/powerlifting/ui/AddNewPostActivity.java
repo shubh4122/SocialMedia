@@ -1,9 +1,13 @@
 package com.android.powerlifting.ui;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +32,7 @@ public class AddNewPostActivity extends AppCompatActivity {
     private Button addImageBtn, createPostBtn;
     private String caption;
     private PostViewModel postViewModel;
+    private ActivityResultLauncher<String> postPhotoPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +46,23 @@ public class AddNewPostActivity extends AppCompatActivity {
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
 
 
+        //This is new method to pick content from Storage.
+        //Alternate of startActivityForResult(DEPRECATED)
+        postPhotoPicker = registerForActivityResult(new ActivityResultContracts.GetContent(),
+                new ActivityResultCallback<Uri>() {
+                    @Override
+                    public void onActivityResult(Uri result) {
+                        postImage.setImageURI(result);
+                        //this uri is of image. Push it to storage and get its link
+                        //in DB. Then display it.
+                    }
+                });
+
         addImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Open system to upload image
+                //Here just launch above photoPicker
+                postPhotoPicker.launch("image/*");
             }
         });
 
