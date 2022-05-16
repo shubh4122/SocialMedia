@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.powerlifting.R;
 import com.android.powerlifting.models.Post;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHolder> {
 
@@ -35,10 +37,22 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         //Get these pics from GLIDE, and db
         holder.profilePic.setImageResource(R.drawable.ic_launcher_background);
         holder.postPic.setImageResource(R.drawable.ic_launcher_background);
-
-        holder.adminName.setText(currentPost.getUser().getName());
-        holder.time_place.setText(currentPost.getTimeOfPost() + " | " + currentPost.getLocationOfPostGenerator());
         holder.caption.setText(currentPost.getCaption());
+        holder.adminName.setText(currentPost.getUser().getName());
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd MMM, yyyy");
+        String currentDateTime = sdf.format(new Date());//hh:mm dd MMM, yyyy
+
+        String currentDate = currentDateTime.substring(6);//dd MMM, yyyy
+        String postTime = currentPost.getTimeOfPost();//hh:mm dd MMM, yyyy
+        if (postTime != null) {
+            if (!currentDate.equalsIgnoreCase(postTime.substring(6)))
+                postTime = postTime.substring(6);//dd MMM, yyyy
+            else
+                postTime = postTime.substring(0, 5);//hh:mm
+        }
+        holder.time_place.setText(postTime + " | " + currentPost.getLocationOfPostGenerator());
+
     }
 
     @Override

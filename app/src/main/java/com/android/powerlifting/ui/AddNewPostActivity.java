@@ -18,6 +18,9 @@ import com.android.powerlifting.models.Member;
 import com.android.powerlifting.models.Post;
 import com.android.powerlifting.ui.fragment.PostFragment;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class AddNewPostActivity extends AppCompatActivity {
 
     private EditText captionEditText;
@@ -54,7 +57,10 @@ public class AddNewPostActivity extends AppCompatActivity {
                                                 "PROFILE PIC",
                                                 "Lucknow, UP");
 
-                Post post = new Post(caption, "PHOTO TO BE UPLOADED", postCreator, "09:30", "Kanpur, UP");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd MMM, yyyy");
+                String currentDateTime = sdf.format(new Date());
+
+                Post post = new Post(caption, "PHOTO TO BE UPLOADED", postCreator, currentDateTime, "Kanpur, UP");
                 postViewModel.addPosts(post);
                 startActivity(new Intent(AddNewPostActivity.this, MainActivity.class));
                 finish();
