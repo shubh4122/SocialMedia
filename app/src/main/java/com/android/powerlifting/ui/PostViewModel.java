@@ -1,6 +1,7 @@
 package com.android.powerlifting.ui;
 
 import android.app.Application;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -29,7 +30,7 @@ public class PostViewModel extends AndroidViewModel {
         postDatabase.addPosts(post);
     }
 
-    public void readPosts(ArrayList<Post> postList, PostsAdapter postsAdapter) {
-        postDatabase.readPosts(postList, postsAdapter);
+    public void readPosts(ArrayList<Post> postList, PostsAdapter postsAdapter, ProgressBar postLoaderBar) {
+        postDatabase.readPosts(postList, postsAdapter, postLoaderBar);
     }
 }

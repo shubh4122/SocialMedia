@@ -1,6 +1,8 @@
 package com.android.powerlifting.firebase;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,7 +42,7 @@ public class Database {
 
     public void readMembers() {}
 
-    public void readPosts(ArrayList<Post> postList, PostsAdapter postsAdapter){
+    public void readPosts(ArrayList<Post> postList, PostsAdapter postsAdapter, ProgressBar postLoaderBar){
 
         if(postsChildEventListener == null) {
 
@@ -52,6 +54,7 @@ public class Database {
                     postList.add(post);
                     postsAdapter.notifyItemInserted(postList.size() - 1);
 
+                    postLoaderBar.setVisibility(View.GONE);
                     //TODO: Done for scrolling to Position given in Params. NOTE
 //                recyclerView.scrollToPosition(postList.size() - 1);
                 }
