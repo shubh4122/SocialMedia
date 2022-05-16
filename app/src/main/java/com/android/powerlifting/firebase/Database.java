@@ -51,8 +51,9 @@ public class Database {
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     Post post = snapshot.getValue(Post.class);
                     //Adding the changed item to last of the arraylist!!
-                    postList.add(post);
-                    postsAdapter.notifyItemInserted(postList.size() - 1);
+                    postList.add(0, post);
+                    //notifies item inserted at given position
+                    postsAdapter.notifyItemInserted(0);
 
                     postLoaderBar.setVisibility(View.GONE);
                     //TODO: Done for scrolling to Position given in Params. NOTE

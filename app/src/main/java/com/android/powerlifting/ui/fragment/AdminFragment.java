@@ -40,6 +40,7 @@ public class AdminFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), AddNewPostActivity.class));
+                finishThisFragmentAndActivity();
             }
         });
 
@@ -49,6 +50,10 @@ public class AdminFragment extends Fragment {
         Member member = new Member("SEC_ADMIN_NAME", "Fasdfse", "Mumbai, Maharashtra");
         adminList.add(member);
         return v;
+    }
+
+    private void finishThisFragmentAndActivity() {
+        getActivity().finish();
     }
 
     private void setUpRecyclerView(View view) {
