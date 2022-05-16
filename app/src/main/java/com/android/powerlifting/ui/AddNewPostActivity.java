@@ -3,6 +3,7 @@ package com.android.powerlifting.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,8 +13,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.powerlifting.R;
+import com.android.powerlifting.adapters.PostsAdapter;
 import com.android.powerlifting.models.Member;
 import com.android.powerlifting.models.Post;
+import com.android.powerlifting.ui.fragment.PostFragment;
 
 public class AddNewPostActivity extends AppCompatActivity {
 
@@ -51,14 +54,10 @@ public class AddNewPostActivity extends AppCompatActivity {
                                                 "PROFILE PIC",
                                                 "Lucknow, UP");
 
-//                Log.i("TRIAL", postCreator.getLocation());
-//                Log.i("TRIAL", postCreator.getName());
-////                Log.i("TRIAL", postCreator.getPhone());
-//                Log.i("TRIAL", postCreator.getProfilePhotoUrl());
-//                Log.i("TRIAL", postCreator.getAge()+"");
-//                Log.i("TRIAL", postCreator.getWeight()+"");
                 Post post = new Post(caption, "PHOTO TO BE UPLOADED", postCreator, "09:30", "Kanpur, UP");
                 postViewModel.addPosts(post);
+                startActivity(new Intent(AddNewPostActivity.this, MainActivity.class));
+                finish();
             }
         });
     }
