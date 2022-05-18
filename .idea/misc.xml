@@ -3,16 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_login.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.353125" />
-        <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.35052083333333334" />
-        <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_members.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.35625" />
-        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/post_item.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/secretary_item.xml" value="0.35625" />
-        <entry key="app/src/main/res/menu/navbar_menu.xml" value="0.353125" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_add_post.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_admin.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_home.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.205" />
+        <entry key="app/src/main/res/drawable/ic_profile.xml" value="0.205" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/activity_otp_verification.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_user_info.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_admin.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/fragment_members.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/post_item.xml" value="0.2078125" />
+        <entry key="app/src/main/res/layout/secretary_item.xml" value="0.2078125" />
+        <entry key="app/src/main/res/menu/navbar_menu.xml" value="0.2078125" />
       </map>
     </option>
   </component>

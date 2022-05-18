@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Powerlifting">
         <activity
+            android:name=".ui.auth.OTP_Verification"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.Login"
+            android:exported="false" />
+        <activity
             android:name=".ui.UserInfoActivity"
             android:exported="false" />
         <activity

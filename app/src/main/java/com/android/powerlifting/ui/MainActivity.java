@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        When App loads for the first time, Home fragment must be displayed
-//        If condition added, so on Screen rotation, it doesnt change the fragment
+//        If condition added, so on Screen rotation, it doesn't change the fragment
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new PostFragment()).commit();
             selectedFragment = new PostFragment();
