@@ -8,7 +8,7 @@ public class Member {
     private int age;
     private String location; // State
 
-    public Member(String name, String phone, float weight, String profilePhotoUrl,int age, String location) {
+    public Member(String name, String phone, float weight, String profilePhotoUrl, int age, String location) {
         this.name = name;
         this.phone = phone;
         this.weight = weight;

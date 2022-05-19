@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.android.powerlifting.R;
 import com.android.powerlifting.ui.MainActivity;
+import com.android.powerlifting.ui.UserInfoActivity;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
@@ -158,14 +159,23 @@ public class OTP_Verification extends AppCompatActivity {
         SharedPreferences sharedPreferences=getSharedPreferences("logindata",MODE_PRIVATE);
         SharedPreferences.Editor editor=sharedPreferences.edit();
         editor.putBoolean("logincounter",true);
-        editor.putString("pno",phone_no);
+        editor.putString("phone_num",phone_no);
         editor.apply();
 
         Toast.makeText(OTP_Verification.this, "Welcome", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(OTP_Verification.this, MainActivity.class );
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        Intent i;
+        SharedPreferences getUserInfoStatus = getSharedPreferences("userInfo", MODE_PRIVATE);
+        boolean userInfoSaved = getUserInfoStatus.getBoolean("writtenToDB", false);
+
+        //If a user has entered Info once, he wont receive the UserInfo screen again.
+        if(!userInfoSaved)
+            i = new Intent(this, UserInfoActivity.class );
+        else
+            i = new Intent(this, MainActivity.class);
+
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
         finish();
     }
 

@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         checkUserStatus();
+        checkUserInfoStatus();
     }
 
     private void checkUserStatus() {
@@ -103,6 +104,15 @@ public class MainActivity extends AppCompatActivity {
         Boolean counter=sharedPreferences.getBoolean("logincounter",Boolean.valueOf(String.valueOf(MODE_PRIVATE)));
         if(!counter){
             startActivity(new Intent(MainActivity.this, Login.class));
+            finish();
+        }
+    }
+
+    private void checkUserInfoStatus() {
+        SharedPreferences getUserInfoStatus = getSharedPreferences("userInfo", MODE_PRIVATE);
+        boolean userInfoSaved = getUserInfoStatus.getBoolean("writtenToDB", false);
+        if (!userInfoSaved) {
+            startActivity(new Intent(this, UserInfoActivity.class));
             finish();
         }
     }

@@ -36,7 +36,6 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-database'
-    implementation 'com.google.firebase:firebase-com.android.powerlifting.ui.auth'
     implementation 'com.google.firebase:firebase-storage'
     implementation 'com.google.firebase:firebase-auth:21.0.4'
     testImplementation 'junit:junit:4.13.2'
