@@ -114,7 +114,6 @@ public class OTP_Verification extends AppCompatActivity {
         //------------------------
         resend_otp.setOnClickListener(view -> {
             Send_OTP();
-            Toast.makeText(OTP_Verification.this, "OTP re-sent Successfully", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -129,7 +128,7 @@ public class OTP_Verification extends AppCompatActivity {
                                    @NonNull PhoneAuthProvider.ForceResendingToken token) {
                 pb.setVisibility(View.GONE);
                 verify_otp.setVisibility(View.VISIBLE);
-                Toast.makeText(OTP_Verification.this, "OTP successfully sent", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OTP_Verification.this, "OTP re-sent successfully", Toast.LENGTH_SHORT).show();
                 mVerificationId =verificationId;
             }
 

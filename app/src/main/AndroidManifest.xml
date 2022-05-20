@@ -13,7 +13,7 @@
             android:name=".ui.auth.OTP_Verification"
             android:exported="false" />
         <activity
-            android:name=".ui.auth.Login"
+            android:name=".ui.auth.SignIn"
             android:exported="false" />
         <activity
             android:name=".ui.UserInfoActivity"

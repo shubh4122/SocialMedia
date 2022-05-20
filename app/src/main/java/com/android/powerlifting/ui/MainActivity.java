@@ -12,7 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android.powerlifting.R;
-import com.android.powerlifting.ui.auth.Login;
+import com.android.powerlifting.ui.auth.SignIn;
 import com.android.powerlifting.ui.fragment.AdminFragment;
 import com.android.powerlifting.ui.fragment.MemberFragment;
 import com.android.powerlifting.ui.fragment.PostFragment;
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences=getSharedPreferences("logindata",MODE_PRIVATE);
         Boolean counter=sharedPreferences.getBoolean("logincounter",Boolean.valueOf(String.valueOf(MODE_PRIVATE)));
         if(!counter){
-            startActivity(new Intent(MainActivity.this, Login.class));
+            startActivity(new Intent(MainActivity.this, SignIn.class));
             finish();
         }
     }
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences sharedPreferences=getSharedPreferences("logindata",MODE_PRIVATE);
             sharedPreferences.edit().clear().commit();
 
-            Intent intent = new Intent(MainActivity.this, Login.class);
+            Intent intent = new Intent(MainActivity.this, SignIn.class);
             startActivity(intent);
             finish();
         }

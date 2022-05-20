@@ -20,7 +20,7 @@ import com.google.firebase.auth.PhoneAuthProvider;
 
 import java.util.concurrent.TimeUnit;
 
-public class Login extends AppCompatActivity {
+public class SignIn extends AppCompatActivity {
 
     Button get_otp;
     EditText mobile_no;
@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signin);
 
         get_otp =findViewById(R.id.get_otp);
         mobile_no =findViewById(R.id.mobileno);
@@ -83,8 +83,8 @@ public class Login extends AppCompatActivity {
                 pb.setVisibility(View.GONE);
                 get_otp.setVisibility(View.VISIBLE);
                 mVerificationId=verificationId;
-                Toast.makeText(Login.this, "OTP sent successfully", Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(Login.this, OTP_Verification.class);
+                Toast.makeText(SignIn.this, "OTP sent successfully", Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(SignIn.this, OTP_Verification.class);
                 intent.putExtra("mobileno", mobile_no.getText().toString().trim());
                 intent.putExtra("verificationID", verificationId);
                 startActivity(intent);
@@ -99,7 +99,7 @@ public class Login extends AppCompatActivity {
             public void onVerificationFailed(@NonNull FirebaseException e) {
                 pb.setVisibility(View.GONE);
                 get_otp.setVisibility(View.VISIBLE);
-                Toast.makeText(Login.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignIn.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
             }
         };
         PhoneAuthOptions options =
