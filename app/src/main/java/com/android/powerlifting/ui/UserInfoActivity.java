@@ -24,13 +24,18 @@ import android.widget.Toast;
 import com.android.powerlifting.R;
 import com.android.powerlifting.firebase.Database;
 import com.android.powerlifting.models.Member;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+
+import java.util.Objects;
 
 public class UserInfoActivity extends AppCompatActivity {
 
@@ -46,7 +51,7 @@ public class UserInfoActivity extends AppCompatActivity {
     ImageButton btn_upload_img;
     private ActivityResultLauncher<String> ImagePicker;
     private StorageReference mStorageRef;
-    private StorageTask mUploadTask;
+    private UploadTask mUploadTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,15 +77,12 @@ public class UserInfoActivity extends AppCompatActivity {
                     public void onActivityResult(Uri result) {
                         profile_img.setImageURI(result);
                         mImgUri = result;
-                        //this uri is of image. Push it to storage and get its link
-                        //in DB. Then display it.
                     }
                 });
 
             btn_upload_img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Here just launch above photoPicker
                     ImagePicker.launch("image/*");
                 }
         });
@@ -118,36 +120,29 @@ public class UserInfoActivity extends AppCompatActivity {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImgUri));
 
-            mUploadTask = fileReference.putFile(mImgUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(UserInfoActivity.this, "Submitted Successfully", Toast.LENGTH_SHORT).show();
+            mUploadTask = fileReference.putFile(mImgUri);
+            Task<Uri> urlTask = mUploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    throw Objects.requireNonNull(task.getException());
+                }
+                return fileReference.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
 
-                            Member user = new Member(s_name, s_phone, 56
-                                    , taskSnapshot.getMetadata().getReference().getDownloadUrl().toString(), 45 , s_location);
-                            Database memberDatabase = new Database();
-                            memberDatabase.addMembers(user);
+                    Toast.makeText(UserInfoActivity.this, "Submitted Successfully", Toast.LENGTH_SHORT).show();
 
-                            resumeActivity();
+                    Member user = new Member(s_name, s_phone, 56, downloadUri.toString(), 45 , s_location);
+                    Database memberDatabase = new Database();
+                    memberDatabase.addMembers(user);
 
-                            Intent intent = new Intent(UserInfoActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(UserInfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    resumeActivity();
 
-                        }
-                    });
+                    Intent intent = new Intent(UserInfoActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
         }
         else {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
