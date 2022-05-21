@@ -17,7 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.UserInfoActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
