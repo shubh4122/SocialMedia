@@ -46,6 +46,11 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MembersV
         return memberList.size();
     }
 
+    public void setFilteredList(ArrayList<Member> filteredList){
+        this.memberList = filteredList;
+        notifyDataSetChanged();
+    }
+
     public class MembersViewHolder extends RecyclerView.ViewHolder {
 
         ImageView profilePic;
