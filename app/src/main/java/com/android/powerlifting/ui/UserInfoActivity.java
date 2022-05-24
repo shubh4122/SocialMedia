@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -52,6 +53,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private ActivityResultLauncher<String> ImagePicker;
     private StorageReference mStorageRef;
     private UploadTask mUploadTask;
+    private Uri downloadUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +130,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 return fileReference.getDownloadUrl();
             }).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    Uri downloadUri = task.getResult();
+                    downloadUri = task.getResult();
 
                     Toast.makeText(UserInfoActivity.this, "Submitted Successfully", Toast.LENGTH_SHORT).show();
 
@@ -147,6 +149,17 @@ public class UserInfoActivity extends AppCompatActivity {
         else {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("name", s_name);
+        editor.putString("location", s_location);
+        editor.putFloat("weight", s_weight);
+        editor.putInt("age", s_age);
+        if (downloadUri != null) {
+            editor.putString("imageUrl", downloadUri.toString());
+        }
+        editor.apply();
     }
 
     private void enable_submit_btn() {
@@ -163,8 +176,12 @@ public class UserInfoActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             s_name = nameUser.getText().toString().trim();
-//            s_weight = Float.valueOf(weightUser.getText().toString());
-//            s_age = Integer.valueOf(ageUser.getText().toString());
+            try {
+                s_weight = Float.valueOf(weightUser.getText().toString());
+                s_age = Integer.valueOf(ageUser.getText().toString());
+            } catch (NumberFormatException e) {
+                Toast.makeText(UserInfoActivity.this, "Enter appropriate num", Toast.LENGTH_SHORT).show();
+            }
             s_location = locationUser.getText().toString().trim();
 
             // to check alternative input type for weight and age

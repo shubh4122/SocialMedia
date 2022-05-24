@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.powerlifting.R;
 import com.android.powerlifting.models.Post;
 import com.android.powerlifting.ui.MainActivity;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,8 +42,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         Post currentPost = postsList.get(position);
 
         //Get these pics from GLIDE, and db
-        holder.profilePic.setImageResource(R.drawable.ic_launcher_background);
-        holder.postPic.setImageResource(R.drawable.ic_launcher_background);
+//        holder.profilePic.setImageResource(R.drawable.ic_launcher_background);
+//        holder.postPic.setImageResource(R.drawable.ic_launcher_background);
+
+        Picasso.get().load(currentPost.getUser().getProfilePhotoUrl()).into(holder.profilePic);
+        Picasso.get().load(currentPost.getPhotoUrl()).into(holder.postPic);
         holder.caption.setText(currentPost.getCaption());
         holder.adminName.setText(currentPost.getUser().getName());
 
@@ -57,21 +61,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
                 PopupMenu popupMenu = new PopupMenu(v.getContext(), holder.postMenu);
                 popupMenu.inflate(R.menu.recyclerview_menu);
 
-                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.edit:
-                                Toast.makeText(v.getContext(), item.getTitle()+" "+position, Toast.LENGTH_SHORT).show();
-                                return true;
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    switch (item.getItemId()) {
+                        case R.id.edit:
+                            Toast.makeText(v.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                            return true;
 
-                            case R.id.delete:
-                                Toast.makeText(v.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
-                                return true;
+                        case R.id.delete:
+                            Toast.makeText(v.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                            return true;
 
-                            default:
-                                return false;
-                        }
+                        default:
+                            return false;
                     }
                 });
                 popupMenu.show();
