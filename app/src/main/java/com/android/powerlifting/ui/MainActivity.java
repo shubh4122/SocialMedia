@@ -5,17 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.android.powerlifting.R;
+import com.android.powerlifting.ui.auth.SignIn;
 import com.android.powerlifting.ui.fragment.AdminFragment;
 import com.android.powerlifting.ui.fragment.MemberFragment;
 import com.android.powerlifting.ui.fragment.PostFragment;
 import com.android.powerlifting.ui.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
+
+    FirebaseAuth mAuth;
 
     private BottomNavigationView bottomNav;
     private Fragment selectedFragment;   // General Var for selected Fragment
@@ -26,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        When App loads for the first time, Home fragment must be displayed
-//        If condition added, so on Screen rotation, it doesnt change the fragment
+//        If condition added, so on Screen rotation, it doesn't change the fragment
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new PostFragment()).commit();
             selectedFragment = new PostFragment();
@@ -80,4 +87,57 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+
+    //========================================================================================
+    // Below code is related to phone authentication part
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkUserStatus();
+        checkUserInfoStatus();
+    }
+
+    private void checkUserStatus() {
+        SharedPreferences sharedPreferences=getSharedPreferences("logindata",MODE_PRIVATE);
+        Boolean counter=sharedPreferences.getBoolean("logincounter",Boolean.valueOf(String.valueOf(MODE_PRIVATE)));
+        if(!counter){
+            startActivity(new Intent(MainActivity.this, SignIn.class));
+            finish();
+        }
+    }
+
+    private void checkUserInfoStatus() {
+        SharedPreferences getUserInfoStatus = getSharedPreferences("userInfo", MODE_PRIVATE);
+        boolean userInfoSaved = getUserInfoStatus.getBoolean("writtenToDB", false);
+        if (!userInfoSaved) {
+            startActivity(new Intent(this, UserInfoActivity.class));
+            finish();
+        }
+    }
+
+    // code for Logout option
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.logout_menu , menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.logout) {
+            mAuth=FirebaseAuth.getInstance();
+            mAuth.signOut();
+
+            SharedPreferences sharedPreferences=getSharedPreferences("logindata",MODE_PRIVATE);
+            sharedPreferences.edit().clear().commit();
+
+            Intent intent = new Intent(MainActivity.this, SignIn.class);
+            startActivity(intent);
+            finish();
+        }
+        return true;
+    }
 }
