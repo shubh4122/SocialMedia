@@ -1,6 +1,8 @@
 package com.android.powerlifting.models;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable {
     private String name;
     private String phone;
     private float weight;
