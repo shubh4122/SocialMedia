@@ -1,7 +1,9 @@
 package com.android.powerlifting.firebase;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Database {
     private FirebaseDatabase firebaseDatabase;
@@ -26,6 +29,7 @@ public class Database {
     private DatabaseReference membersDatabaseReference;
     private ChildEventListener postsChildEventListener;
     private ChildEventListener membersChildEventListener;
+//    private ChildEventListener userChildEventListener;
 
     public Database() {
         firebaseDatabase = FirebaseDatabase.getInstance();

@@ -1,17 +1,19 @@
 package com.android.powerlifting.models;
 
-public class Member {
+import java.io.Serializable;
+
+public class Member implements Serializable {
     private String name;
     private String phone;
-    private float weight;
+    private String weight;
     private String profilePhotoUrl;
-    private int age;
+    private String age;
     private String location; // State
 
 
     public Member(){}
 
-    public Member(String name, String phone, float weight, String profilePhotoUrl, int age, String location) {
+    public Member(String name, String phone, String weight, String profilePhotoUrl, String age, String location) {
         this.name = name;
         this.phone = phone;
         this.weight = weight;
@@ -36,7 +38,7 @@ public class Member {
         this.phone = phone;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
@@ -53,7 +55,7 @@ public class Member {
         return phone;
     }
 
-    public float getWeight() {
+    public String getWeight() {
         return weight;
     }
 
@@ -61,7 +63,7 @@ public class Member {
         return profilePhotoUrl;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
