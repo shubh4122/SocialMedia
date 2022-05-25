@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.powerlifting.R;
@@ -39,16 +41,15 @@ import java.util.Objects;
 
 public class UserInfoActivity extends AppCompatActivity {
 
-
-    EditText nameUser , phoneUser , weightUser , ageUser , locationUser;
+    TextView tvAgeUser, tvWeightUser;
+    EditText nameUser , phoneUser , locationUser;
+    NumberPicker npAge, npWeight;
     Button submit_btn;
-    private String s_name, s_phone, s_location;
-    private Float s_weight;
-    private Integer s_age;
-    private Uri mImgUri;
-
+    private String s_name, s_phone, s_age, s_weight, s_location;
     ImageView profile_img;
     ImageButton btn_upload_img;
+
+    private Uri mImgUri;
     private ActivityResultLauncher<String> ImagePicker;
     private StorageReference mStorageRef;
     private UploadTask mUploadTask;
@@ -64,10 +65,41 @@ public class UserInfoActivity extends AppCompatActivity {
         btn_upload_img = findViewById(R.id.btnUpload_img);
         nameUser = findViewById(R.id.nameUser);
         phoneUser = findViewById(R.id.phoneUser);
-        weightUser = findViewById(R.id.weightUser);
-        ageUser = findViewById(R.id.ageUser);
+        tvWeightUser = findViewById(R.id.tvWeightUser);
+        tvAgeUser = findViewById(R.id.tvAgeUser);
+        npAge = findViewById(R.id.numberPickerAge);
+        npWeight = findViewById(R.id.numberPickerWeight);
         locationUser = findViewById(R.id.locationUser);
         submit_btn = findViewById(R.id.submit);
+
+        phoneUser.setEnabled(false);
+        s_phone = getSharedPreferences.getString("phone_num", "Number not found!");
+        phoneUser.setText("+91 " + s_phone);
+
+        npAge.setMinValue(20);
+        npAge.setMaxValue(40);
+        tvAgeUser.setText(String.valueOf(npAge.getValue()));
+        npAge.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                tvAgeUser.setText(String.valueOf(i1));
+                s_age = tvAgeUser.getText().toString();
+            }
+        });
+
+
+        npWeight.setMinValue(50);
+        npWeight.setMaxValue(100);
+        tvWeightUser.setText(String.valueOf(npWeight.getValue()));
+        npWeight.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker numberPicker, int i, int i1) {
+                tvWeightUser.setText(String.valueOf(i1));
+                s_weight = tvWeightUser.getText().toString();
+            }
+        });
+
+
 
         mStorageRef = FirebaseStorage.getInstance().getReference("Profile_Pics");
 
@@ -86,11 +118,6 @@ public class UserInfoActivity extends AppCompatActivity {
                     ImagePicker.launch("image/*");
                 }
         });
-
-
-        phoneUser.setEnabled(false);
-        s_phone = getSharedPreferences.getString("phone_num", "Number not found!");
-        phoneUser.setText("+91 " + s_phone);
 
         submit_btn.setEnabled(false);
         enable_submit_btn();
@@ -132,7 +159,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
                     Toast.makeText(UserInfoActivity.this, "Submitted Successfully", Toast.LENGTH_SHORT).show();
 
-                    Member user = new Member(s_name, s_phone, 56, downloadUri.toString(), 45 , s_location);
+                    Member user = new Member(s_name, s_phone, s_weight, downloadUri.toString(), s_age , s_location);
                     Database memberDatabase = new Database();
                     memberDatabase.addMembers(user);
 
@@ -151,8 +178,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
     private void enable_submit_btn() {
         nameUser.addTextChangedListener(watcher);
-        weightUser.addTextChangedListener(watcher);
-        ageUser.addTextChangedListener(watcher);
         locationUser.addTextChangedListener(watcher);
     }
 
@@ -163,12 +188,8 @@ public class UserInfoActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             s_name = nameUser.getText().toString().trim();
-//            s_weight = Float.valueOf(weightUser.getText().toString());
-//            s_age = Integer.valueOf(ageUser.getText().toString());
             s_location = locationUser.getText().toString().trim();
 
-            // to check alternative input type for weight and age
-            // isEmpty can,t be used with int or float type value so ignoring for now
             submit_btn.setEnabled(!s_name.isEmpty() && !s_location.isEmpty());
         }
 

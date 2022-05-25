@@ -39,8 +39,8 @@ public class Member_profile_page extends AppCompatActivity {
 
         tvName.setText(member.getName());
         tvLocation.setText(member.getLocation());
-//        tvAge.setText(member.getAge());
-//        tvWeight.setText("60");
+        tvAge.setText(member.getAge());
+        tvWeight.setText(member.getWeight());
 
 
 

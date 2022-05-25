@@ -10,7 +10,7 @@
         android:id="@+id/cardView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="15dp"
         app:cardCornerRadius="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,27 +28,22 @@
         android:id="@+id/nameUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="10dp"
+        android:layout_marginTop="8dp"
         android:hint="Name"
-        app:layout_constraintTop_toBottomOf="@+id/btnUpload_img"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnUpload_img" />
 
     <EditText
         android:id="@+id/phoneUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="10dp"
         android:hint="Phone Number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nameUser" />
-
-    <EditText
-        android:id="@+id/weightUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Weight"
-        android:inputType="numberDecimal"
-        app:layout_constraintTop_toBottomOf="@id/phoneUser" />
 
     <!--    THINGS to be changed
 
@@ -60,43 +55,112 @@
 
             And other things
             -->
-    <EditText
-        android:id="@+id/ageUser"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:hint="Age"
-        android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/weightUser" />
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="14dp"
+        android:text="Age : "
+        android:textColor="#03A9F4"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/numberPickerAge"
+        app:layout_constraintEnd_toStartOf="@+id/tvAgeUser" />
+
+    <TextView
+        android:id="@+id/tvAgeUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:text="20"
+        android:textColor="#FFC107"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/numberPickerAge"
+        app:layout_constraintEnd_toStartOf="@+id/tvWeightUser"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneUser"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerAge"
+        android:layout_width="59dp"
+        android:layout_height="121dp"
+        app:layout_constraintBottom_toTopOf="@+id/locationUser"
+        app:layout_constraintEnd_toStartOf="@+id/numberPickerWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneUser"
+        app:layout_constraintVertical_bias="0.768" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:text="Weight : "
+        android:textColor="#03A9F4"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/numberPickerWeight"
+        app:layout_constraintEnd_toStartOf="@+id/tvWeightUser" />
+
+    <TextView
+        android:id="@+id/tvWeightUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="14dp"
+        android:text="58"
+        android:textColor="#FFC107"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/numberPickerWeight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneUser"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerWeight"
+        android:layout_width="59dp"
+        android:layout_height="121dp"
+        android:layout_marginEnd="96dp"
+        app:layout_constraintBottom_toTopOf="@+id/locationUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneUser"
+        app:layout_constraintVertical_bias="0.768" />
 
     <EditText
         android:id="@+id/locationUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="56dp"
+        android:layout_margin="10dp"
         android:hint="Location"
-        app:layout_constraintTop_toBottomOf="@id/ageUser"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneUser"
+        app:layout_constraintVertical_bias="0.628"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginBottom="68dp"
         android:padding="10dp"
         android:text="Submit"
-        app:layout_constraintHorizontal_bias="0.532"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/locationUser" />
+        app:layout_constraintTop_toBottomOf="@+id/locationUser" />
 
     <ImageButton
         android:id="@+id/btnUpload_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView"

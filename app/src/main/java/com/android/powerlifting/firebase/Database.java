@@ -1,7 +1,9 @@
 package com.android.powerlifting.firebase;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Database {
     private FirebaseDatabase firebaseDatabase;
@@ -25,6 +28,7 @@ public class Database {
     private DatabaseReference membersDatabaseReference;
     private ChildEventListener postsChildEventListener;
     private ChildEventListener membersChildEventListener;
+//    private ChildEventListener userChildEventListener;
 
     public Database() {
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -124,6 +128,45 @@ public class Database {
         }
     }
 
-
+//    public int readMembers(ArrayList<Member> memberList, String phone){
+//
+//        if(userChildEventListener == null) {
+//
+//            userChildEventListener = new ChildEventListener() {
+//                @Override
+//                public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                    Member member = snapshot.getValue(Member.class);
+//                    memberList.add(member);
+//
+////                    Toast.makeText(context, memberList.get(3).getName(), Toast.LENGTH_SHORT).show();
+////                    membersAdapter.notifyItemInserted(0);
+////                    memberLoaderBar.setVisibility(View.GONE);
+//                }
+//
+//                @Override
+//                public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                }
+//                @Override
+//                public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+//                }
+//                @Override
+//                public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+//                }
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//                }
+//            };
+//            membersDatabaseReference.addChildEventListener(userChildEventListener);
+//        }
+//
+//        int position = 0;
+//        for (int i = 0; i < memberList.size(); i++) {
+//            Member member = memberList.get(i);
+//            if(Objects.equals(member.getPhone(), phone)){
+//                position = i;
+//            }
+//        }
+//        return position;
+//    }
 }
 
