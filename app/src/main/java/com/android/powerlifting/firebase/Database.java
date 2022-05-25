@@ -104,31 +104,40 @@ public class Database {
 
     public void deletePost(Post post, Context context) {
         Toast.makeText(context, "Deleting Post...", Toast.LENGTH_SHORT).show();
-        StorageReference picRef = FirebaseStorage.getInstance().getReferenceFromUrl(post.getPhotoUrl());
+        if (post.getPhotoUrl() != null) {
+            StorageReference picRef = FirebaseStorage.getInstance().getReferenceFromUrl(post.getPhotoUrl());
 
-        picRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            picRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    deletePostWithoutImage(post, context);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "Deletion Failed!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else {
+            deletePostWithoutImage(post, context);
+        }
+    }
+
+    public void deletePostWithoutImage(Post post, Context context) {
+        Query query = firebaseDatabase.getReference("Posts").orderByChild("uidPost").equalTo(post.getUidPost());
+        query.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess(Void unused) {
-                Query query = firebaseDatabase.getReference("Posts").orderByChild("uidPost").equalTo(post.getUidPost());
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            dataSnapshot.getRef().removeValue();
-                        }
-                        Toast.makeText(context, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    dataSnapshot.getRef().removeValue();
+                }
+                Toast.makeText(context, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(new OnFailureListener() {
+
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(context, "Deletion Failed!", Toast.LENGTH_SHORT).show();
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

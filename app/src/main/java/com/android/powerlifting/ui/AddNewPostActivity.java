@@ -131,19 +131,13 @@ public class AddNewPostActivity extends AppCompatActivity {
 //                FirebaseUser user = auth.getCurrentUser();
 //
 //                String name = user.getDisplayName();
-                String imageUrl = "null";
-                try {
-//                    imageUrl = user.getPhotoUrl().toString();
-                    imageUrl = sharedPreferences.getString("imageUrl", "https://getodk-a3b1.kxcdn.com/uploads/default/d97aaae47866522c9404527cc25f6d6b11a0328c");
-                } catch (Exception e) {
-                    Toast.makeText(AddNewPostActivity.this, imageUrl, Toast.LENGTH_SHORT).show();
-                }
+                String imageUrl = sharedPreferences.getString("imageUrl", null);
                 Member postCreator = new Member(name, imageUrl, location);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd MMM, yyyy");
                 String currentDateTime = sdf.format(new Date());
 
-                String postImageUri = downloadUri == null ? "https://getodk-a3b1.kxcdn.com/uploads/default/d97aaae47866522c9404527cc25f6d6b11a0328c" : downloadUri.toString();
+                String postImageUri = downloadUri == null ? null : downloadUri.toString();
                 Post post = post = new Post(caption, postImageUri, postCreator, currentDateTime, postCreator.getLocation());
 //                Toast.makeText(AddNewPostActivity.this, postImageUri, Toast.LENGTH_SHORT).show();
                 postViewModel.addPosts(post);

@@ -57,8 +57,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 //        holder.postPic.setImageResource(R.drawable.ic_launcher_background);
 
         int deletedPosition = position;
+
+        boolean isPhoto = currentPost.getPhotoUrl() != null;
+        if (isPhoto) {
+            Picasso.get().load(currentPost.getPhotoUrl()).into(holder.postPic);
+        } else {
+            holder.postPic.setVisibility(View.GONE);
+        }
+
         Picasso.get().load(currentPost.getUser().getProfilePhotoUrl()).into(holder.profilePic);
-        Picasso.get().load(currentPost.getPhotoUrl()).into(holder.postPic);
         holder.caption.setText(currentPost.getCaption());
         holder.adminName.setText(currentPost.getUser().getName());
 
