@@ -7,6 +7,7 @@ public class Post {
     private String timeOfPost;
     private String locationOfPostGenerator;
     private Member user; // Who posted the post. Admin or Secretaries
+    private String uidPost; //Unique id for each post!
 
 //    This no argument constructor is necessary to make.
 //    OtherWise it poses this error:
@@ -20,6 +21,7 @@ public class Post {
         this.user = user;
         this.timeOfPost = time;
         this.locationOfPostGenerator = location;
+        this.uidPost = time + user.getName();
     }
 
     //No setter method for now. Coz we don't wish to let them edit post for now
@@ -42,5 +44,9 @@ public class Post {
 
     public String getLocationOfPostGenerator() {
         return locationOfPostGenerator;
+    }
+
+    public String getUidPost() {
+        return uidPost;
     }
 }

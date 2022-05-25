@@ -95,10 +95,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         String currentDateTime = sdf.format(new Date());//hh:mm dd MMM, yyyy
 
         String currentDate = currentDateTime.substring(6);//dd MMM, yyyy
-        String postTime = currentPost.getTimeOfPost();//hh:mm dd MMM, yyyy
+        String postTime = currentPost.getTimeOfPost();//hh:mm dd MMM, yyyy current post
         if (postTime != null) {
-            if (!currentDate.equalsIgnoreCase(postTime.substring(6)))
-                postTime = postTime.substring(6);//dd MMM, yyyy
+            if (!currentDate.equalsIgnoreCase(postTime.substring(9)))
+                postTime = postTime.substring(9);//dd MMM, yyyy current post
             else
                 postTime = postTime.substring(0, 5);//hh:mm
         }

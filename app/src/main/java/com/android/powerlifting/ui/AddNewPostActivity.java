@@ -140,7 +140,7 @@ public class AddNewPostActivity extends AppCompatActivity {
                 }
                 Member postCreator = new Member(name, imageUrl, location);
 
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd MMM, yyyy");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd MMM, yyyy");
                 String currentDateTime = sdf.format(new Date());
 
                 String postImageUri = downloadUri == null ? "https://getodk-a3b1.kxcdn.com/uploads/default/d97aaae47866522c9404527cc25f6d6b11a0328c" : downloadUri.toString();
