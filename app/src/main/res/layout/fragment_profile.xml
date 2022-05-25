@@ -20,7 +20,8 @@
             android:id="@+id/profileImg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/trial_pic" />
+            android:src="@drawable/trial_pic"
+            android:scaleType="centerCrop"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView

@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Powerlifting">
         <activity
+            android:name=".ui.ImageDisplayActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.Member_profile_page"
             android:exported="false" />
         <activity
