@@ -1,5 +1,6 @@
 package com.android.powerlifting.adapters;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.powerlifting.R;
 import com.android.powerlifting.models.Post;
+import com.android.powerlifting.ui.ImageDisplayActivity;
 import com.android.powerlifting.ui.MainActivity;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +51,16 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         Picasso.get().load(currentPost.getPhotoUrl()).into(holder.postPic);
         holder.caption.setText(currentPost.getCaption());
         holder.adminName.setText(currentPost.getUser().getName());
+
+        //To show full image on click
+        holder.postPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ImageDisplayActivity.class);
+                intent.putExtra("uri", currentPost.getPhotoUrl());
+                v.getContext().startActivity(intent);
+            }
+        });
 
         holder.postMenu.setOnClickListener(new View.OnClickListener() {
             @Override
