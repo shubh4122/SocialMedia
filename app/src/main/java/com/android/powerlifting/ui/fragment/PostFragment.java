@@ -48,7 +48,7 @@ public class PostFragment extends Fragment {
     private void setUpRecyclerView(View view) {
         recyclerView = view.findViewById(R.id.postRecyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
-        postsAdapter = new PostsAdapter(postsList);
+        postsAdapter = new PostsAdapter(postsList, getContext());
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(postsAdapter);

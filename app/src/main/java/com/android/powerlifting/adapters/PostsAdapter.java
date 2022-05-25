@@ -1,5 +1,6 @@
 package com.android.powerlifting.adapters;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -8,16 +9,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.powerlifting.R;
 import com.android.powerlifting.models.Post;
 import com.android.powerlifting.ui.ImageDisplayActivity;
 import com.android.powerlifting.ui.MainActivity;
+import com.android.powerlifting.ui.PostViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -27,9 +32,13 @@ import java.util.Date;
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHolder> {
 
     private ArrayList<Post> postsList;
+    private PostViewModel viewModel;
+    private Context context;
 //    OnItemClickListener listener;
-    public PostsAdapter(ArrayList<Post> postsList) {
+    public PostsAdapter(ArrayList<Post> postsList, Context context) {
         this.postsList = postsList;
+        this.context = context;
+        viewModel = new ViewModelProvider((ViewModelStoreOwner) context).get(PostViewModel.class);
     }
 
     @NonNull
@@ -47,6 +56,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 //        holder.profilePic.setImageResource(R.drawable.ic_launcher_background);
 //        holder.postPic.setImageResource(R.drawable.ic_launcher_background);
 
+        int deletedPosition = position;
         Picasso.get().load(currentPost.getUser().getProfilePhotoUrl()).into(holder.profilePic);
         Picasso.get().load(currentPost.getPhotoUrl()).into(holder.postPic);
         holder.caption.setText(currentPost.getCaption());
@@ -80,7 +90,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
                             return true;
 
                         case R.id.delete:
-                            Toast.makeText(v.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(v.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                            viewModel.deletePost(currentPost, context);
+//                            postsList.remove(deletedPosition);
+//                            viewModel.readPosts(postsList, PostsAdapter.this, null);
                             return true;
 
                         default:

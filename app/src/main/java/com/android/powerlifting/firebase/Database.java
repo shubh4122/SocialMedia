@@ -13,12 +13,17 @@ import com.android.powerlifting.adapters.PostsAdapter;
 import com.android.powerlifting.adapters.MembersAdapter;
 import com.android.powerlifting.models.Member;
 import com.android.powerlifting.models.Post;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -60,7 +65,9 @@ public class Database {
                     //notifies item inserted at given position
                     postsAdapter.notifyItemInserted(0);
 
-                    postLoaderBar.setVisibility(View.GONE);
+                    if (postLoaderBar != null) {
+                        postLoaderBar.setVisibility(View.GONE);
+                    }
                     //TODO: Done for scrolling to Position given in Params. NOTE
 //                recyclerView.scrollToPosition(postList.size() - 1);
                 }
@@ -73,7 +80,7 @@ public class Database {
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+//                    postsAdapter.notifyDataSetChanged();
                 }
 
                 @Override
@@ -95,8 +102,35 @@ public class Database {
 
     }
 
-    public void deletePost() {
-//        Query query = postsDatabaseReference.orderByChild("")
+    public void deletePost(Post post, Context context) {
+        Toast.makeText(context, "Deleting Post...", Toast.LENGTH_SHORT).show();
+        StorageReference picRef = FirebaseStorage.getInstance().getReferenceFromUrl(post.getPhotoUrl());
+
+        picRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Query query = firebaseDatabase.getReference("Posts").orderByChild("uidPost").equalTo(post.getUidPost());
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            dataSnapshot.getRef().removeValue();
+                        }
+                        Toast.makeText(context, "Deleted Successfully!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context, "Deletion Failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void readMembers(ArrayList<Member> membersList, MembersAdapter membersAdapter, ProgressBar memberLoaderBar){

@@ -1,6 +1,7 @@
 package com.android.powerlifting.ui;
 
 import android.app.Application;
+import android.content.Context;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,7 @@ public class PostViewModel extends AndroidViewModel {
         postDatabase.editPost();
     }
 
-    public void deletePost() {
-        postDatabase.deletePost();
+    public void deletePost(Post currentPost, Context context) {
+        postDatabase.deletePost(currentPost, context);
     }
 }
