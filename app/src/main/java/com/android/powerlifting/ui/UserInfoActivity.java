@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.powerlifting.R;
@@ -53,14 +54,21 @@ public class UserInfoActivity extends AppCompatActivity {
     private ActivityResultLauncher<String> ImagePicker;
     private StorageReference mStorageRef;
     private UploadTask mUploadTask;
-    private Uri downloadUri;
+    Uri downloadUri;
+    ProgressBar progressBar;
+    Member user;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
 
-        SharedPreferences getSharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
+//        SharedPreferences getSharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
+//        storeUri = "FUCK YOU!";
+        sharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
+        editor = sharedPreferences.edit();
 
         profile_img = findViewById(R.id.profile_Img);
         btn_upload_img = findViewById(R.id.btnUpload_img);
@@ -70,6 +78,8 @@ public class UserInfoActivity extends AppCompatActivity {
         ageUser = findViewById(R.id.ageUser);
         locationUser = findViewById(R.id.locationUser);
         submit_btn = findViewById(R.id.submit);
+        progressBar = findViewById(R.id.submittingData);
+        progressBar.setVisibility(View.GONE);
 
         mStorageRef = FirebaseStorage.getInstance().getReference("Profile_Pics");
 
@@ -91,7 +101,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
 
         phoneUser.setEnabled(false);
-        s_phone = getSharedPreferences.getString("phone_num", "Number not found!");
+        s_phone = sharedPreferences.getString("phone_num", "Number not found!");
         phoneUser.setText("+91 " + s_phone);
 
         submit_btn.setEnabled(false);
@@ -118,7 +128,16 @@ public class UserInfoActivity extends AppCompatActivity {
     }
 
     private void SubmitData(){
+//
+//        SharedPreferences sharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+//        editor.putString("imageUrl", "NULL");
         if(mImgUri != null){
+
+            progressBar.setVisibility(View.VISIBLE);
+            submit_btn.setEnabled(false);
+
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImgUri));
 
@@ -132,15 +151,26 @@ public class UserInfoActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     downloadUri = task.getResult();
 
-                    Toast.makeText(UserInfoActivity.this, "Submitted Successfully", Toast.LENGTH_SHORT).show();
+                    editor.putString("imageUrl", downloadUri.toString());
+                    editor.putString("name", s_name);
+                    editor.putString("location", s_location);
+                    editor.putFloat("weight", s_weight);
+                    editor.putInt("age", s_age);
+                    editor.apply();
 
-                    Member user = new Member(s_name, s_phone, 56, downloadUri.toString(), 45 , s_location);
+//                    Toast.makeText(UserInfoActivity.this, "Submitted Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserInfoActivity.this, downloadUri != null ? downloadUri.toString() : "NULL", Toast.LENGTH_SHORT).show();
+
+                    user = new Member(s_name, s_phone, 56, downloadUri.toString(), 45 , s_location);
                     Database memberDatabase = new Database();
                     memberDatabase.addMembers(user);
 
                     resumeActivity();
 
                     Intent intent = new Intent(UserInfoActivity.this, MainActivity.class);
+//                    String uri = downloadUri.toString();
+//                    intent.putExtra("profilePicUrl", downloadUri.toString());
+
                     startActivity(intent);
                     finish();
                 }
@@ -148,18 +178,14 @@ public class UserInfoActivity extends AppCompatActivity {
         }
         else {
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+//            editor.clear().apply();
         }
 
-        SharedPreferences sharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("name", s_name);
-        editor.putString("location", s_location);
-        editor.putFloat("weight", s_weight);
-        editor.putInt("age", s_age);
-        if (downloadUri != null) {
-            editor.putString("imageUrl", downloadUri.toString());
-        }
-        editor.apply();
+//        editor.putString("name", s_name);
+//        editor.putString("location", s_location);
+//        editor.putString("imageUrl", user.getProfilePhotoUrl());
+//        editor.putFloat("weight", s_weight);
+//        editor.putInt("age", s_age);
     }
 
     private void enable_submit_btn() {

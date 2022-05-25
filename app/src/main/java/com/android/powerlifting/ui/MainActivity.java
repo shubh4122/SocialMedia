@@ -31,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+//        String profilePicUrl = getIntent().getExtras().getString("profilePicUrl");
+//
+//        editor.putString("imageUrl", profilePicUrl);
+//        editor.apply();
+
 
 //        When App loads for the first time, Home fragment must be displayed
 //        If condition added, so on Screen rotation, it doesn't change the fragment

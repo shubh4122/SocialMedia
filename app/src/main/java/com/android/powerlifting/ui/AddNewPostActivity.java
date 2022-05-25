@@ -28,6 +28,7 @@ import com.android.powerlifting.models.Post;
 import com.android.powerlifting.ui.fragment.PostFragment;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -123,9 +124,21 @@ public class AddNewPostActivity extends AppCompatActivity {
 
                 SharedPreferences sharedPreferences = getSharedPreferences("logindata", MODE_PRIVATE);
                 String name = sharedPreferences.getString("name", "defName");
-                String imageUrl = sharedPreferences.getString("imageUrl", "https://getodk-a3b1.kxcdn.com/uploads/default/d97aaae47866522c9404527cc25f6d6b11a0328c");
+//                String imageUrl = sharedPreferences.getString("imageUrl", "https://getodk-a3b1.kxcdn.com/uploads/default/d97aaae47866522c9404527cc25f6d6b11a0328c");
                 String location = sharedPreferences.getString("location", "defLocation");
 
+//                FirebaseAuth auth = FirebaseAuth.getInstance();
+//                FirebaseUser user = auth.getCurrentUser();
+//
+//                String name = user.getDisplayName();
+                String imageUrl = "null";
+                try {
+//                    imageUrl = user.getPhotoUrl().toString();
+                    imageUrl = sharedPreferences.getString("imageUrl", "https://getodk-a3b1.kxcdn.com/uploads/default/d97aaae47866522c9404527cc25f6d6b11a0328c");
+                } catch (Exception e) {
+                    Toast.makeText(AddNewPostActivity.this, imageUrl, Toast.LENGTH_SHORT).show();
+                }
+                Toast.makeText(AddNewPostActivity.this, imageUrl, Toast.LENGTH_SHORT).show();
                 Member postCreator = new Member(name, imageUrl, location);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd MMM, yyyy");
