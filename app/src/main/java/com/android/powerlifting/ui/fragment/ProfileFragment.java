@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,17 +20,16 @@ import com.android.powerlifting.R;
 import com.android.powerlifting.firebase.Database;
 import com.android.powerlifting.models.Member;
 import com.android.powerlifting.ui.MembersViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
 
-//    TextView tvName;
-//
-//    ArrayList<Member> memberList;
-//    private String phone;
-//    private Integer position;
-
+    ImageView profileImg;
+    TextView tvName , tvLocation , tvAge, tvWeight;
+    String imgUrl , name , location , weight, age;
+    SharedPreferences getSharedPreferences;
 
     @Nullable
     @Override
@@ -37,28 +37,25 @@ public class ProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 //
-//        tvName = view.findViewById(R.id.tvUserName);
+        profileImg = view.findViewById(R.id.profileImg);
+        tvName = view.findViewById(R.id.tvUserName);
+        tvLocation = view.findViewById(R.id.tvUserLocation);
+        tvWeight = view.findViewById(R.id.tvUserWeight);
+        tvAge = view.findViewById(R.id.tvUserAge);
 //
-//        SharedPreferences getSharedPreferences = this.getActivity().getSharedPreferences("logindata", Context.MODE_PRIVATE);
-//        phone = getSharedPreferences.getString("phone_num", "Number not found!");
+        getSharedPreferences = this.getActivity().getSharedPreferences("logindata", Context.MODE_PRIVATE);
 
-//        memberList = new ArrayList<>();
-//        Database userDB = new Database();
-//        position = userDB.readMembers(memberList , phone);
-//        Toast.makeText(getContext(), memberList.isEmpty()+" "+memberList.size(), Toast.LENGTH_SHORT).show();
+        imgUrl = getSharedPreferences.getString("imageUrl", "profileImg not found!");
+        name = getSharedPreferences.getString("name", "name not found!");
+        location = getSharedPreferences.getString("location", "location not found!");
+        weight = getSharedPreferences.getString("weight", "weight not found!");
+        age = getSharedPreferences.getString("age", "age not found!");
 
-//        Member member = memberList.get(0);
-//        Log.d("abhi", member.getName());
-
-//        for (int i = 0; i < memberList.size(); i++) {
-//            Member member = memberList.get(i);
-//            if(member.getPhone() == phone){
-//                position = i;
-//            }
-//        }
-//
-//        Member user = memberList.get(position);
-//        tvName.setText(user.getName());
+        Picasso.get().load(imgUrl).into(profileImg);
+        tvName.setText(name);
+        tvLocation.setText(location);
+        tvWeight.setText(weight);
+        tvAge.setText(age);
 
         return view;
     }
