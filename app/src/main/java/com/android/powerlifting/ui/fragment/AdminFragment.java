@@ -1,6 +1,8 @@
 package com.android.powerlifting.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,7 @@ import com.android.powerlifting.ui.AddNewPostActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AdminFragment extends Fragment {
 
@@ -27,6 +30,8 @@ public class AdminFragment extends Fragment {
     private PostsAdapter postsAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private FloatingActionButton addPostBtn;
+    SharedPreferences sharedPreferences;
+    private String phone;
 
     @Nullable
     @Override
@@ -34,7 +39,14 @@ public class AdminFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_admin, container, false);
 
+        sharedPreferences = this.getActivity().getSharedPreferences("logindata", Context.MODE_PRIVATE);
+        phone = sharedPreferences.getString("phone_num", "Number not found!");
+
         addPostBtn = v.findViewById(R.id.addPost);
+
+        if(Objects.equals(phone, "8840849989") || Objects.equals(phone, "7052800709")){
+            addPostBtn.setVisibility(View.VISIBLE);
+        }
 
         addPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
