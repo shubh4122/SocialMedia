@@ -231,15 +231,6 @@ public class UserInfoActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             s_name = nameUser.getText().toString().trim();
-//<<<<<<< HEAD
-//            try {
-//                s_weight = Float.valueOf(weightUser.getText().toString());
-//                s_age = Integer.valueOf(ageUser.getText().toString());
-//            } catch (NumberFormatException e) {
-//                Toast.makeText(UserInfoActivity.this, "Enter appropriate num", Toast.LENGTH_SHORT).show();
-//            }
-//=======
-//>>>>>>> 28fb12c01d9e6154e78690e164e9ff4f5496c649
             s_location = locationUser.getText().toString().trim();
 
             submit_btn.setEnabled(!s_name.isEmpty() && !s_location.isEmpty());

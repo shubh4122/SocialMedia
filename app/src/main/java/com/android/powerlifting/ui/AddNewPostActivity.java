@@ -138,7 +138,6 @@ public class AddNewPostActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Toast.makeText(AddNewPostActivity.this, imageUrl, Toast.LENGTH_SHORT).show();
                 }
-                Toast.makeText(AddNewPostActivity.this, imageUrl, Toast.LENGTH_SHORT).show();
                 Member postCreator = new Member(name, imageUrl, location);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm dd MMM, yyyy");
