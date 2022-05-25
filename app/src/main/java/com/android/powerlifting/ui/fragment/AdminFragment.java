@@ -44,7 +44,7 @@ public class AdminFragment extends Fragment {
 
         addPostBtn = v.findViewById(R.id.addPost);
 
-        if(Objects.equals(phone, "8840849989") || Objects.equals(phone, "7052800709")){
+        if(Objects.equals(phone, "8840849989") || Objects.equals(phone, "7052800709") || Objects.equals(phone, "1111111111")){
             addPostBtn.setVisibility(View.VISIBLE);
         }
 

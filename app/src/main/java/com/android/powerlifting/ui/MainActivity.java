@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
+    Boolean counter;
 
     private BottomNavigationView bottomNav;
     private Fragment selectedFragment;   // General Var for selected Fragment
@@ -104,15 +105,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         checkUserStatus();
-        checkUserInfoStatus();
     }
 
     private void checkUserStatus() {
         SharedPreferences sharedPreferences=getSharedPreferences("logindata",MODE_PRIVATE);
-        Boolean counter=sharedPreferences.getBoolean("logincounter",Boolean.valueOf(String.valueOf(MODE_PRIVATE)));
+        counter = sharedPreferences.getBoolean("logincounter",Boolean.valueOf(String.valueOf(MODE_PRIVATE)));
         if(!counter){
             startActivity(new Intent(MainActivity.this, SignIn.class));
             finish();
+        } else {
+            checkUserInfoStatus();
         }
     }
 
