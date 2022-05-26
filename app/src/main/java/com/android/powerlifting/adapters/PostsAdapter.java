@@ -57,7 +57,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
 //        holder.profilePic.setImageResource(R.drawable.ic_launcher_background);
 //        holder.postPic.setImageResource(R.drawable.ic_launcher_background);
 
-        int deletedPosition = position;
+//        int deletedPosition = position;
 
         boolean isPhoto = currentPost.getPhotoUrl() != null;
         if (isPhoto) {
@@ -107,7 +107,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
                         case R.id.delete:
 //                            Toast.makeText(v.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
                             viewModel.deletePost(currentPost, context);
-//                            postsList.remove(deletedPosition);
+                            postsList.remove(holder.getAdapterPosition());
+                            notifyDataSetChanged();
 //                            viewModel.readPosts(postsList, PostsAdapter.this, null);
                             return true;
 
