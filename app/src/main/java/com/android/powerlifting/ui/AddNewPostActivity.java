@@ -3,10 +3,12 @@ package com.android.powerlifting.ui;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -168,5 +170,33 @@ public class AddNewPostActivity extends AppCompatActivity {
         ContentResolver CR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(CR.getType(uri));
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog alertDialog = discardOrKeepPost();
+        alertDialog.show();
+    }
+
+    private AlertDialog discardOrKeepPost() {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Discard Post?")
+                .setMessage("Select an action to be performed!")
+                .setPositiveButton("Get Back", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Discard", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(AddNewPostActivity.this, MainActivity.class));
+                        finish();
+                    }
+                })
+                .create();
+
+        return alertDialog;
     }
 }
