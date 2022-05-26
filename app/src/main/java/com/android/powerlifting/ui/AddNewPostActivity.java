@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -60,6 +61,13 @@ public class AddNewPostActivity extends AppCompatActivity {
         postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         progressBar = findViewById(R.id.addingImage);
         progressBar.setVisibility(View.GONE);
+
+        //Used for Edit Post
+        if (getIntent().getBooleanExtra("edit",false)) {
+            captionEditText.setText(getIntent().getStringExtra("caption"));
+            String intentUri = getIntent().getStringExtra("image");
+            Picasso.get().load(intentUri).into(postImage);
+        }
 
 
         //This is new method to pick content from Storage.
@@ -140,7 +148,11 @@ public class AddNewPostActivity extends AppCompatActivity {
                 String postImageUri = downloadUri == null ? null : downloadUri.toString();
                 Post post = post = new Post(caption, postImageUri, postCreator, currentDateTime, postCreator.getLocation());
 //                Toast.makeText(AddNewPostActivity.this, postImageUri, Toast.LENGTH_SHORT).show();
-                postViewModel.addPosts(post);
+                if (getIntent().getBooleanExtra("edit",false)) {
+                    postViewModel.editPost(getIntent().getStringExtra("uid"), caption, postImageUri);
+                }
+                else
+                    postViewModel.addPosts(post);
                 startActivity(new Intent(AddNewPostActivity.this, MainActivity.class));
                 finish();
             }

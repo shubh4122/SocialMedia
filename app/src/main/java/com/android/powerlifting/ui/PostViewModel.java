@@ -35,8 +35,8 @@ public class PostViewModel extends AndroidViewModel {
         postDatabase.readPosts(postList, postsAdapter, postLoaderBar);
     }
 
-    public void editPost() {
-        postDatabase.editPost();
+    public void editPost(String uid, String caption, String postImageUri) {
+        postDatabase.editPost(uid, caption, postImageUri);
     }
 
     public void deletePost(Post currentPost, Context context) {

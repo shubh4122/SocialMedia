@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.powerlifting.R;
 import com.android.powerlifting.models.Post;
+import com.android.powerlifting.ui.AddNewPostActivity;
 import com.android.powerlifting.ui.ImageDisplayActivity;
 import com.android.powerlifting.ui.MainActivity;
 import com.android.powerlifting.ui.PostViewModel;
@@ -93,7 +94,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
                 popupMenu.setOnMenuItemClickListener(item -> {
                     switch (item.getItemId()) {
                         case R.id.edit:
-                            Toast.makeText(v.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(context, AddNewPostActivity.class);
+                            intent.putExtra("caption", currentPost.getCaption());
+                            intent.putExtra("image", currentPost.getPhotoUrl());
+                            intent.putExtra("edit", true);
+                            intent.putExtra("uid", currentPost.getUidPost());
+                            context.startActivity(intent);
+//                            Toast.makeText(v.getContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
+//                            viewModel.editPost(currentPost, context);
                             return true;
 
                         case R.id.delete:

@@ -1,6 +1,7 @@
 package com.android.powerlifting.firebase;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -13,6 +14,7 @@ import com.android.powerlifting.adapters.PostsAdapter;
 import com.android.powerlifting.adapters.MembersAdapter;
 import com.android.powerlifting.models.Member;
 import com.android.powerlifting.models.Post;
+import com.android.powerlifting.ui.AddNewPostActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -98,8 +100,27 @@ public class Database {
         }
     }
 
-    public void editPost() {
+    public void editPost(String uid, String caption, String postImageUri) {
 
+        postsDatabaseReference.orderByChild("uidPost").equalTo(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String key = dataSnapshot.getKey();
+//                    String caption = dataSnapshot.child("caption").getValue().toString();
+//                    String image = dataSnapshot.child("photoUrl").getValue().toString();
+
+
+                    postsDatabaseReference.child(key).child("caption").setValue(caption);
+                    postsDatabaseReference.child(key).child("photoUrl").setValue(postImageUri);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void deletePost(Post post, Context context) {
