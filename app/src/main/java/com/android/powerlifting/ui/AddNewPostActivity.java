@@ -76,7 +76,8 @@ public class AddNewPostActivity extends AppCompatActivity {
                 new ActivityResultCallback<Uri>() {
                     @Override
                     public void onActivityResult(Uri result) {
-                            postImage.setImageURI(result);
+//                            postImage.setImageURI(result);
+                            Picasso.get().load(result).into(postImage);
                             progressBar.setVisibility(View.VISIBLE);
                             createPostBtn.setEnabled(false);
                             //this uri is of image. Push it to storage and get its link
@@ -149,6 +150,10 @@ public class AddNewPostActivity extends AppCompatActivity {
                 Post post = post = new Post(caption, postImageUri, postCreator, currentDateTime, postCreator.getLocation());
 //                Toast.makeText(AddNewPostActivity.this, postImageUri, Toast.LENGTH_SHORT).show();
                 if (getIntent().getBooleanExtra("edit",false)) {
+                    //if image has not been edited then put original image back
+                    if (postImageUri == null)
+                        postImageUri = getIntent().getStringExtra("image");
+                    Picasso.get().load(postImageUri).into(postImage);
                     postViewModel.editPost(getIntent().getStringExtra("uid"), caption, postImageUri);
                 }
                 else
