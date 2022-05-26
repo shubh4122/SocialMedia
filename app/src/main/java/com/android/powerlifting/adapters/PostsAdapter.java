@@ -2,6 +2,7 @@ package com.android.powerlifting.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,9 +30,11 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHolder> {
 
+    SharedPreferences sharedPreferences;
     private ArrayList<Post> postsList;
     private PostViewModel viewModel;
     private Context context;
@@ -152,6 +155,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
         ImageView profilePic, postPic;
         TextView adminName, time_place, caption;
         Button postMenu;
+        String phone;
 
         public PostsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -162,6 +166,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostsViewHol
             time_place = itemView.findViewById(R.id.placeOfAdmin);
             caption = itemView.findViewById(R.id.caption_post);
             postMenu = itemView.findViewById(R.id.postMenu);
+
+            sharedPreferences = itemView.getContext().getSharedPreferences("logindata", Context.MODE_PRIVATE);
+            phone = sharedPreferences.getString("phone_num", "Number not found!");
+
+            if(Objects.equals(phone, "8840849989") || Objects.equals(phone, "7052800709") || Objects.equals(phone, "1111111111")){
+                postMenu.setVisibility(View.VISIBLE);
+            }
 
         }
     }
